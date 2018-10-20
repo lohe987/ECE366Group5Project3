@@ -42,31 +42,32 @@ class Simulator:
             return False
 
     def __init__(self, file_name:str):
-        self.source = open(file_name, 'r')
+        self.source = file_name
 
     def Run(self):
         try:
-            for i, line in enumerate(self.source):
-                # sanatize the line
-                line = self.__SanatizeLine(line)
-                print(line)
-                if line[0] == "sar":
-                    self.ActiveRegister = line[1]
-                elif line[0] == "b":
-                    print(i + 1)
-                    self.source.seek()
-                elif line[0] == "stop":
-                    break
-                elif "mov" in line[0]:
-                    if "i" in line[0]:
-                        self.registers[self.ActiveRegister] = int(line[1])
-                    else:
-                        self.registers[self.ActiveRegister] = self.registers[line[1]]
-                else:
-                    if self.__RunArthmeticInstruction(line, None if 'i' not in line[0] else int(line[1])):
-                        continue
-                    else:
+            with open(self.source, 'r') as source:
+                for i, line in enumerate(source):
+                    # sanatize the line
+                    line = self.__SanatizeLine(line)
+                    print(line)
+                    if line[0] == "sar":
+                        self.ActiveRegister = line[1]
+                    elif line[0] == "b":
+                        print(i + 1)
+                        source.seek()
+                    elif line[0] == "stop":
                         break
+                    elif "mov" in line[0]:
+                        if "i" in line[0]:
+                            self.registers[self.ActiveRegister] = int(line[1])
+                        else:
+                            self.registers[self.ActiveRegister] = self.registers[line[1]]
+                    else:
+                        if self.__RunArthmeticInstruction(line, None if 'i' not in line[0] else int(line[1])):
+                            continue
+                        else:
+                            break
             print(self.registers)
         except IOError as error:
             print(error)
