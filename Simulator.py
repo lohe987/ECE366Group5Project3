@@ -11,17 +11,21 @@ class Simulator:
         "a": 0
     }
     artihmetic_ins = {
-        "add": lambda x,y: x + y,
-        "sub": lambda x,y: x - y,
-        "mlt": lambda x,y: x * y,
-        "srl": lambda x,y: x << y,
-        "sll": lambda x,y: x >> y,
-        "and": lambda x,y: x & y
+        "0001": lambda x,y: x + y,  # add
+        "1100": lambda x,y: x + y,  # addi
+        "1000": lambda x,y: x - y,  # sub
+        "1001": lambda x,y: x * y,  # mlt
+        "0101": lambda x,y: x << y, # sll
+        "0100": lambda x,y: x >> y, # srl
+        "0011": lambda x,y: x & y   # and
     }
     ActiveRegister = '0'
 
     def __SanatizeLine(self, line:str) -> list:
         return [i for i in line.strip().lower().split(' ') if i != '' and i != ' '] 
+    
+    def __BinToNumber(self, bin_str:str) -> int:
+        return int(bin_str, base=2)
 
     def __RunArthmeticInstruction(self, instruction:list, immediate:int) -> bool:
         """
@@ -32,7 +36,6 @@ class Simulator:
         try:
             if immediate is not None:
                 # cut off the last letter
-                instruction[0] = instruction[0][:-1]
                 self.registers[self.ActiveRegister] = self.artihmetic_ins[instruction[0]](self.registers[self.ActiveRegister], immediate)
             else:
                 self.registers[self.ActiveRegister] = self.artihmetic_ins[instruction[0]](self.registers[self.ActiveRegister], self.registers[instruction[1]])
@@ -48,23 +51,23 @@ class Simulator:
         try:
             with open(self.source, 'r') as source:
                 for i, line in enumerate(source):
-                    # sanatize the line
-                    line = self.__SanatizeLine(line)
-                    print(line)
-                    if line[0] == "sar":
-                        self.ActiveRegister = line[1]
-                    elif line[0] == "b":
-                        print(i + 1)
-                        source.seek()
-                    elif line[0] == "stop":
+                    line = line.strip()
+                    opcode = line[1:5]
+                    number = self.__BinToNumber(line[5:8])
+                    # SAR
+                    if opcode == "0000":
+                        self.ActiveRegister = str(number) # needs to be stored as a string
+                    # STOP
+                    elif opcode == "1111":
                         break
-                    elif "mov" in line[0]:
-                        if "i" in line[0]:
-                            self.registers[self.ActiveRegister] = int(line[1])
+                    # MOV
+                    elif opcode == "0010" or opcode == "1011":
+                        if opcode[-1] == "1":
+                            self.registers[self.ActiveRegister] = number
                         else:
-                            self.registers[self.ActiveRegister] = self.registers[line[1]]
+                            self.registers[self.ActiveRegister] = self.registers[number]
                     else:
-                        if self.__RunArthmeticInstruction(line, None if 'i' not in line[0] else int(line[1])):
+                        if self.__RunArthmeticInstruction([opcode, str(number)], None if '1100' != opcode else number):
                             continue
                         else:
                             break

@@ -1,5 +1,5 @@
-sar  1
-ADDI 9
+SAR  1
+ADDI 3 
 SAR  2
-mOvi 2
+MOVI 2
 MLT 1
