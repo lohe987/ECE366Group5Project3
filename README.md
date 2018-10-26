@@ -7,7 +7,7 @@ To run the simulator just run the following in the terminal
 
 ```
 
-python Simulate program.asm
+python Simulate.py program.asm
 
 ```
 
