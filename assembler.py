@@ -12,7 +12,7 @@ ins_to_op = {
     'BSLT': '1010',
     'MOVI': '1011',
     'ADDI': '1100',
-    'SPC': '1101',
+    'SJL': '1101',
     'B': '1110',
     'STOP': '1111'
 }
@@ -38,7 +38,8 @@ def assemble(filename):
             line_list = [i for i in line_list if i != '' and i != ' ']
             op = '' if line_list[0] not in ins_to_op else ins_to_op[line_list[0]] # get the op code
             if ':' in line or line.isspace() or op == '':
-                wf.write(f'{line}\n')
+                # skip these because it's a lable
+                print(f'Label: {line}')
             elif op == '1111' or op == '1110':
                 wf.write(f'11111111\n') if ins_to_op[line_list[0]] == '1111' else wf.write(f'01110111\n')
             else:
