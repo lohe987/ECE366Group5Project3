@@ -79,6 +79,7 @@ class Simulator:
     def Run(self):
         # needs to be a while loop to enable jumping
         i = 0
+        dic = 0
         while i < len(self.ProgramData):
             print(f'Instruction {i}')
             line = self.ProgramData[i]
@@ -102,12 +103,14 @@ class Simulator:
             elif opcode == "1110":
                 # make the pc(i) = jump location dictated by the label holder register
                 i = self.LabelLocations[self.registers['p']] - 1 # -1 because 0 indexed
+                dic += 1
                 continue
             # BSLT
             elif opcode == "1010":
                 # if Ra < Rs then branch else continue
                 if self.registers[self.ActiveRegister] < self.registers[str(number)]:
                     i = self.LabelLocations[self.registers['p']] - 1 # -1 because 0 indexed
+                dic += 1
                 continue
             # SPC
             elif opcode == "1101":
@@ -121,5 +124,6 @@ class Simulator:
                 if self.__RunArthmeticInstruction([opcode, str(number)], None if '1100' != opcode else number) is False:
                     break
             i += 1
-        print(self.registers)
+            dic += 1 # after the instruction is run increase Dynamic instruction count
+        print(f'Registers: {self.registers}\nDynamic Instrcution Count: {dic}\n')
         
