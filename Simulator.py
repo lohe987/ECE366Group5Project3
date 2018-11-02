@@ -23,7 +23,13 @@ class Simulator:
     }
     ProgramData = []
     LabelLocations = []
+    Memory = []
     ActiveRegister = '0'
+
+    def __LoadMemory(self) -> list:
+        with open(f'{self.source}_mem.txt') as memFile:
+            for line in memFile:
+                self.Memory.append(line.strip())                
 
     def __SanatizeLine(self, line:str) -> list:
         return [i for i in line.strip().lower().split(' ') if i != '' and i != ' '] 
@@ -75,6 +81,7 @@ class Simulator:
         self.source = file_name
         self.__PrepareProgram()
         self.__GetLabels()
+        self.__LoadMemory()
 
     def Run(self):
         # needs to be a while loop to enable jumping
@@ -119,6 +126,14 @@ class Simulator:
                 # so if the label the program wants is the first one in the program
                 # then the Rp = 0 + 0
                 self.registers['p'] = self.registers[self.ActiveRegister] + self.registers[str(number)]
+            # LOAD
+            elif opcode == "0110":
+                # Ra = MEM[Rs]
+                self.registers[self.ActiveRegister] = self.Memory[self.registers[str(number)]]
+            #STOR
+            elif opcode == "0111":
+                # Rs = MEM[Ra]
+                self.Memory[self.registers[str(number)]] = self.registers[self.ActiveRegister]
             # all arthmetic instructions
             else:
                 if self.__RunArthmeticInstruction([opcode, str(number)], None if '1100' != opcode else number) is False:
