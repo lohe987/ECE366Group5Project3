@@ -27,7 +27,7 @@ class Simulator:
     ActiveRegister = '0'
 
     def __LoadMemory(self) -> list:
-        with open(f'{self.source}_mem.txt') as memFile:
+        with open(f'{self.source.split(".")[0]}_mem.txt') as memFile:
             for line in memFile:
                 self.Memory.append(line.strip())                
 
