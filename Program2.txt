@@ -17,7 +17,12 @@ MOV 1 #R0=7
 ADDI 1 #R0=8
 STOR 1 #MEM[7]=8 #address of array
 SAR 0
-MOVI 2
+MOVI 2 #R0=2
+ADDI 2 #R0=4
+ADDI 2 #R0=6
+ADDI 2 #R0=8
+ADDI 2 #R0=10
+MLT 0 #R0=10*10
 
 
 #begining of main loop
