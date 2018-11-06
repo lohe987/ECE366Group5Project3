@@ -136,7 +136,7 @@ class Simulator:
                 self.Memory[self.registers[str(number)]] = self.registers[self.ActiveRegister]
             # all arthmetic instructions
             else:
-                if self.__RunArthmeticInstruction([opcode, str(number)], None if '1100' != opcode else number) is False:
+                if self.__RunArthmeticInstruction([opcode, number], None if '1100' != opcode else number) is False:
                     break
             i += 1
             dic += 1 # after the instruction is run increase Dynamic instruction count

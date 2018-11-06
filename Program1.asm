@@ -11,54 +11,59 @@ MOVI 3 #R5=3
 ADDI 3 #R5=6
 
 
-##start of main loop
+#start of main loop 0
 MAIN:
 SAR 6
 MOVI 3
-SJL 6 #RP=3
-SAR 3
-BSLT 1 #branches out of the loop
+ADDI 1
+SJL 6 #RP=4
+SAR 1
+BSLT 3 #branches out of the loop
+SAR 1
+ADDI 1
 SAR 6
-MOVI 1
-SJL 6 #RP=1
+MOVI 2
+SJL 6 #RP=2
+MOVI 1 
 SAR 1
 BSLT 6 
 
 
 
-#counter to begin
+#counter to begin 1
 MULTI:
 SAR 2
 MOVI 6
 SAR 6
-MOVI 2 #R6=2
-SJL 6  #RP=2
+MOVI 3 #R6=3
+SJL 6  #RP=3
 B 
 
-
-MULT:
+#2
+MULT: 
 SAR 2
 MLT 5
 SAR 6
-MOVI 2 #R6=2
-SJL 6  #RP=2
+MOVI 3 #R6=3
+SJL 6  #RP=3
 B 
 
+#3
 #begining of MOD branch
 MOD:
 SAR 6
-MOVI 3 #R6=3
-SJL 6  #RP=3
+MOVI 0 #R6=0
+SJL 6  #RP=0
 SAR 3
 BSLT 2
 SAR 2
 SUB 4
 SAR 6
-MOVI 2 #R6=2
-SJL 6  #RP=2
+MOVI 3 #R6=3
+SJL 6  #RP=3
 B    #branches back to beg of MOD
 
-#begining of done branch
+#begining of done branch 4
 PROGRAMFINISH:
 SAR 1
 MOVI 2
