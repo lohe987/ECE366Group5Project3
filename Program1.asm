@@ -10,6 +10,9 @@ SAR 5
 MOVI 3 #R5=3
 ADDI 3 #R5=6
 
+SAR 6
+MOVI 0
+BSLT 3 
 
 #start of main loop 0
 MAIN:
