@@ -29,7 +29,7 @@ class Simulator:
     def __LoadMemory(self) -> list:
         with open(f'{self.source.split(".")[0]}_mem.txt') as memFile:
             for line in memFile:
-                self.Memory.append(line.strip())                
+                self.Memory.append(int(line, 2))                
 
     def __SanatizeLine(self, line:str) -> list:
         return [i for i in line.strip().lower().split(' ') if i != '' and i != ' '] 
@@ -136,7 +136,7 @@ class Simulator:
                 self.Memory[self.registers[str(number)]] = self.registers[self.ActiveRegister]
             # all arthmetic instructions
             else:
-                if self.__RunArthmeticInstruction([opcode, number], None if '1100' != opcode else number) is False:
+                if self.__RunArthmeticInstruction([opcode, str(number)], None if '1100' != opcode else number) is False:
                     break
             i += 1
             dic += 1 # after the instruction is run increase Dynamic instruction count
