@@ -16,6 +16,8 @@ MAIN:
 SAR 6
 MOVI 3
 ADDI 1
+SAR 0
+MOVI 0
 SJL 6 #RP=4
 SAR 1
 BSLT 3 #branches out of the loop
