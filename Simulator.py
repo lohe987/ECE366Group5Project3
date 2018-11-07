@@ -117,6 +117,8 @@ class Simulator:
                 # if Ra < Rs then branch else continue
                 if self.registers[self.ActiveRegister] < self.registers[str(number)]:
                     i = self.LabelLocations[self.registers['p']] - 1 # -1 because 0 indexed
+                else:
+                    i += 1
                 dic += 1
                 continue
             # SPC
