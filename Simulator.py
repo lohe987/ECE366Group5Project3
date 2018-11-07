@@ -76,6 +76,11 @@ class Simulator:
         with open(assembled_program, 'r') as source:
             for line in source:
                 self.ProgramData.append(line)
+    
+    def __RewriteMemory(self): 
+        with open(f'{self.source.split(".")[0]}_mem_new.txt', 'w+') as newMemFile:
+            for mem_value in self.Memory:
+                newMemFile.write(f"{'{0:016b}'.format(mem_value)}\n")
 
     def __init__(self, file_name:str):
         self.source = file_name
@@ -135,6 +140,7 @@ class Simulator:
             #STOR
             elif opcode == "0111":
                 # Rs = MEM[Ra]
+                print(self.registers[self.ActiveRegister])
                 self.Memory[self.registers[str(number)]] = self.registers[self.ActiveRegister]
             # all arthmetic instructions
             else:
@@ -143,4 +149,5 @@ class Simulator:
             i += 1
             dic += 1 # after the instruction is run increase Dynamic instruction count
         print(f'Registers: {self.registers}\nDynamic Instrcution Count: {dic}\n')
+        self.__RewriteMemory()
         

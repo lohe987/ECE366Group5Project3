@@ -20,7 +20,6 @@ ins_to_op = {
 def CleanLine(line:str) -> str:
     if '#' in line:
         line = line.split('#')[0]
-    line.strip
     return [i for i in line.split(' ') if i != '' and i != ' ']
 
 def CleanImmediate(value_of_immediate:str)->str:       
@@ -40,17 +39,19 @@ def assemble(filename):
         for line in f:
             if not line or line[0] == '#':
                 continue
+            line = line.strip()
             line_list = CleanLine(line)
+            print(line_list)
             op = '' if line_list[0] not in ins_to_op else ins_to_op[line_list[0]] # get the op code
+            print(op)
+            #print(line)
             if ':' in line or line.isspace() or op == '':
                 # skip these because it's a label
                 print(f'Label: {line}')
             elif op == '1111' or op == '1110':
                 wf.write(f'11111111\n') if ins_to_op[line_list[0]] == '1111' else wf.write(f'01110111\n')
             else:
-                print(line_list)
                 immVal = CleanImmediate(line_list[1])
                 wf.write(AssignParity(f'{op}{immVal}') + '\n')
     return f"{filename.split('.')[0]}_binary.txt"
-
 
