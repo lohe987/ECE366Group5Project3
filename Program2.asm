@@ -22,7 +22,7 @@ ADDI 2 #R0=4
 ADDI 2 #R0=6
 ADDI 2 #R0=8
 ADDI 2 #R0=10
-MLT 0 #R0=10*10
+MLT 0 #R0=10*10=100
 SAR 1
 MOVI 2 #R1=2
 ADDI 2 #R1=4
@@ -31,16 +31,13 @@ STOR 1 #MEM[4]=100
 
 
 
-#begining of main loop
+MAIN:
 SAR 0
 MOVI 0
-LOAD 0 #R0=MEM[0]
+LOAD 0 #R0=counter
 SAR 1
-MOVI 3 #R1=3
-ADDI 1 #R1=4
-LOAD 1 #R1=MEM[4]
-BSLT  ## branches when the loop is complete
-B     ## branches to checking array
-
-#checking of target vs pattern
-SAR 0
+MOVI 3
+ADDI 1
+LOAD 1 #R1=100
+SAR 6
+#
