@@ -42,7 +42,7 @@ def assemble(filename):
             line = line.strip()
             line_list = CleanLine(line)
             print(line_list)
-            op = '' if line_list[0] not in ins_to_op else ins_to_op[line_list[0]] # get the op code
+            op = '' if not line_list or line_list[0] not in ins_to_op else ins_to_op[line_list[0]] # get the op code
             print(op)
             #print(line)
             if ':' in line or line.isspace() or op == '':
