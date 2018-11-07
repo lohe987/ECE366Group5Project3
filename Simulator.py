@@ -63,7 +63,7 @@ class Simulator:
         with open(self.source, 'r') as file:
             for i, line in enumerate(file):
                 if ':' in line:
-                    self.LabelLocations.append(i + 1)
+                    self.LabelLocations.append(i + 1 - len(self.LabelLocations))
                    
     def __PrepareProgram(self):
         # assemble the program if it's an asm file
@@ -122,6 +122,7 @@ class Simulator:
                 # if Ra < Rs then branch else continue
                 if self.registers[self.ActiveRegister] < self.registers[str(number)]:
                     i = self.LabelLocations[self.registers['p']] - 1 # -1 because 0 indexed
+                    print(f'i = {i}')
                 else:
                     i += 1
                 dic += 1
