@@ -87,16 +87,18 @@ ADDI 2 #R7=5
 SAR 6
 MLT 7 #R6=3*5=15
 SAR 7
-MOVI 1
-SAR 6
-SUB 7
-SAR 7
 MOVI 0
 SAR 5
 MOVI 0 #R5=0=smallCounter
 CHECKER: #LABEL 2
-SAR 5
-ADDI 1 #R5=smallCounter++
+SAR 7
+MOVI 3
+ADDI 2 #R7=5
+SAR 3
+MOVI 0
+SJL 7 #RP=5
+SAR 6
+BSLT 5 #if 15<smallCounter branch else continue
 SAR 2
 MOV 0 #R2=R0=TARGET
 SAR 3
@@ -139,20 +141,14 @@ BSLT 7 #if R2<1 then branch to shift array else increase score and move to shift
 SAR 4
 ADDI 1 #R4=score++
 SHIFTARRAY: #LABEL 4
-SAR 7
-MOVI 3 #R7=3
-ADDI 2 #R7=5
-SAR 3
-MOVI 0
-SJL 7 #RP=5
-SAR 6
-BSLT 5 #if 16<smallCounter branch to CHECKINGMAX else shift array and branch to CHECKER
+SAR 5
+ADDI 1 #R5=smallCounter++
 SAR 7
 MOVI 1
 SAR 0
-SLL 7 #R0<<1
+SLL 7 #R0>>1
 SAR 1
-SLL 7 #R1<<1
+SLL 7 #R1>>1
 SAR 7
 MOVI 2 #R7=2
 SAR 3
