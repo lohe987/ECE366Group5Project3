@@ -21,17 +21,149 @@ SAR 1
 MOVI 3
 ADDI 1 #R1=4
 SAR 0
-STOR 1 #MEM[4]=0
-STOP
+STOR 1 #MEM[4]=0 #highest score
 SAR 1
 ADDI 1 #R1=5
 SAR 0
-STOR 1 #MEM[5]=0
+STOR 1 #MEM[5]=0 #number of highest score
 SAR 1
 ADDI 1 #R1=6
 SAR 0
-STOR 1 #MEM[6]=0
+STOR 1 #MEM[6]=0 #current score 
 SAR 1
-ADDI #R1=7
+ADDI 1 #R1=7
 SAR 0
-STOR 1 #MEM[7]=0
+MOVI 3 #R0=3
+ADDI 3 #R0=6
+ADDI 2 #R0=8
+STOR 1 #MEM[7]=8 = address
+SAR 0
+MOVI 0 #R0=0
+SAR 1
+MOVI 0 #R1=0
+SAR 2
+MOVI 0 #R2=0
+SAR 3
+MOVI 0 #R3=0
+SAR 4
+MOVI 0 #R4=0
+SAR 5
+MOVI 0 #R5=0
+SAR 6
+MOVI 0 #R6=0
+SAR 7
+MOVI 0 #R7=0
+MAIN: #STILL HAVE SET JUMP DISTANCE LABEL 0
+SAR 0
+LOAD 0 #R0=MEM[0]=counter
+SAR 1
+MOVI 1
+LOAD 1 #R1=99=MEM[1]
+SAR 1
+BSLT 0 #if 99<counter then branch to FINISH else go to ARRAYSETUP
+SAR 0
+ADDI 1 #R0=counter++
+SAR 1  
+MOVI 0 #R1=0
+SAR 0
+STOR 1 #R0=MEM[0]=counter
+ARRAYSETUP: #LABEL 1
+SAR 0
+MOVI 3 #R0=3
+LOAD 0 #R0=MEM[3]=TARGET
+SAR 1
+MOVI 3 #R1=3
+ADDI 3 #R1=6
+ADDI 1 #R1=7
+LOAD 1 #R1=MEM[7]=address
+LOAD 1 #R1=MEM[8]=PATTERN
+SAR 4
+MOVI 0 #R4=score=0
+SAR 6
+MOVI 3 #R6=3
+SAR 7  
+MOVI 3 #R7=3
+ADDI 2 #R7=5
+SAR 6
+MLT 7 #R6=3*5=15
+SAR 7
+MOVI 1
+SAR 6
+SUB 7
+SAR 7
+MOVI 0
+SAR 5
+MOVI 0 #R5=0=smallCounter
+CHECKER: #LABEL 2
+SAR 5
+ADDI 1 #R5=smallCounter++
+SAR 2
+MOV 0 #R2=R0=TARGET
+SAR 3
+MOV 1 #R3=R1=PATTERN
+SAR 7
+MOVI 1 #R7=1
+SAR 2
+AND 7  #R2&0x1
+SAR 3
+AND 7  #R2&0x1
+SAR 2
+SUB 3 #R2=R2-R3= -1,0,1
+ADDI 1 #R2 = 0,1,2
+SAR 7
+MOVI 3 #R7=3
+SAR 3
+MOVI 0 #R3=0
+SJL 7 #RP=3
+SAR 7 
+MOVI 2 #R7=2
+SAR 2
+BSLT 7 #if R2<2 then branch to CHECKINGVALUE else continue and branch to SHIFTARRAY
+SAR 7
+MOVI 3
+ADDI 1 #R7=4
+SAR 3
+MOVI 0
+SJL 7 #RP=4
+B     #jumps to shift array
+CHECKINGVALUE: #LABEL 3
+SAR 7
+MOVI 3
+ADDI 1 #R7=4
+SAR 3
+MOVI 0
+SJL 7 #RP=4
+SAR 7
+MOVI 1 #R7=1
+BSLT 7 #if R2<1 then branch to shift array else increase score and move to shift array
+SAR 4
+ADDI 1 #R4=score++
+SHIFTARRAY: #LABEL 4
+SAR 7
+MOVI 3 #R7=3
+ADDI 2 #R7=5
+SAR 3
+MOVI 0
+SJL 7 #RP=5
+SAR 6
+BSLT 5 #if 16<smallCounter branch to CHECKINGMAX else shift array and branch to CHECKER
+SAR 7
+MOVI 1
+SAR 0
+SLL 7 #R0<<1
+SAR 1
+SLL 7 #R1<<1
+SAR 7
+MOVI 2 #R7=2
+SAR 3
+MOVI 0
+SJL 7 #RP=2
+SAR 7
+MOVI 0 #R7=0
+SAR 2
+MOVI 0 #R2=0
+SAR 3
+MOVI 0 #R3=0
+B     #jumps to CHECKER
+CHECKINGMAX: #LABEL 5
+STOP
