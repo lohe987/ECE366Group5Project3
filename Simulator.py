@@ -110,7 +110,7 @@ class Simulator:
                 if opcode[-1] == "1":
                     self.registers[self.ActiveRegister] = number
                 else:
-                    self.registers[self.ActiveRegister] = self.registers[number]
+                    self.registers[self.ActiveRegister] = self.registers[str(number)]
             # B
             elif opcode == "1110":
                 # make the pc(i) = jump location dictated by the label holder register

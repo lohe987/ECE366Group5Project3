@@ -1,43 +1,37 @@
 SAR 0 #R0 IS ACTIVE
 MOVI 0 #R0=0
 STOR 0 #MEM[0]=0 #counter 
+SAR 0
+MOVI 3 #R0=3
+ADDI 3 #R0=6
+ADDI 3 #R0=9
+ADDI 1 #R0=10
+SAR 2
+MOV 0
+SAR 0
+MLT 2
 SAR 1
 MOVI 1 #R1=1
-SAR 0  #Ra=R0
-STOR 1 #MEM[1]=0 #current max hamming distance
-SAR 1
-MOVI 3 #R1=3
-ADDI 3 #R1=6
 SAR 0
-STOR 1 #MEM[6]=0 #number of value with max hamming distance
-SAR 1
-ADDI 1 #R1=7
+SUB 1 #R0-R1=99
+STOR 1 #MEM[1]=99
 SAR 0
-MOV 1 #R0=7
-ADDI 1 #R0=8
-STOR 1 #MEM[7]=8 #address of array
-SAR 0
-MOVI 2 #R0=2
-ADDI 2 #R0=4
-ADDI 2 #R0=6
-ADDI 2 #R0=8
-ADDI 2 #R0=10
-MLT 0 #R0=10*10=100
-SAR 1
-MOVI 2 #R1=2
-ADDI 2 #R1=4
-SAR 0 
-STOR 1 #MEM[4]=100
-
-
-
-MAIN:
-SAR 0
-MOVI 0
-LOAD 0 #R0=counter
+MOVI 0 #R0=0
 SAR 1
 MOVI 3
-ADDI 1
-LOAD 1 #R1=100
-SAR 6
-#
+ADDI 1 #R1=4
+SAR 0
+STOR 1 #MEM[4]=0
+STOP
+SAR 1
+ADDI 1 #R1=5
+SAR 0
+STOR 1 #MEM[5]=0
+SAR 1
+ADDI 1 #R1=6
+SAR 0
+STOR 1 #MEM[6]=0
+SAR 1
+ADDI #R1=7
+SAR 0
+STOR 1 #MEM[7]=0

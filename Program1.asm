@@ -1,15 +1,20 @@
 SAR 3 #R3 IS ACTIVE
 LOAD 0 #R3=P
-
+SAR 7
+MOV 3 #R7=1
+SAR 0
+MOVI 1
+SAR 7
+SUB 0
+SAR 0
+MOVI 0
 SAR 5 #R5 IS ACTIVE
 MOVI 1 #R5=1
 SAR 4
 LOAD 5 #R4=MEM[1]=Q
-
 SAR 5 
 MOVI 3 #R5=3
 ADDI 3 #R5=6
-
 MAIN:
 SAR 6
 MOVI 3
@@ -17,8 +22,8 @@ ADDI 1
 SAR 0
 MOVI 0
 SJL 6 #RP=4
-SAR 3
-BSLT 1 #branch out if P<counter
+SAR 7
+BSLT 1 #branch out if P-1<counter
 SAR 1
 ADDI 1 #R1=COUNTER++
 SAR 6
@@ -26,9 +31,9 @@ MOVI 2 #R6=2
 SAR 0
 MOVI 0
 SJL 6 #RP=2
-SAR 6
-BSLT 1
-MULT:
+SAR 1
+BSLT 6 #if counter<2 then branch to MULTI
+MULT:  #LABEL 1
 SAR 2
 MLT 5
 SAR 6
@@ -36,31 +41,29 @@ MOVI 3
 SAR 0
 MOVI 0
 SJL 6 #RP=3
-SAR 7
-MOVI 1
-B
-MULTI:
+B     #JUMPS TO MOD
+MULTI: #LABEL 2
 SAR 2
 MOVI 3
 ADDI 3
-MOD:
+MOD: #LABEL 3
 SAR 6
 MOVI 0
 SAR 0
 MOVI 0
 SJL 6 #RP=0
 SAR 2
-SUB 4
+BSLT 4 #if currentValue<Q then branch
+SUB 4 #currentValue-Q
 SAR 6
 MOVI 3
 SAR 0
 MOVI 0
 SJL 6 #RP=3
-B
+B     #jumps to MOD
 DONE:
 SAR 0
 MOVI 2
 SAR 2
 STOR 0
 STOP
-
