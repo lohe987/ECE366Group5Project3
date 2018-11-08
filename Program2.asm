@@ -137,6 +137,7 @@ MOVI 0
 SJL 7 #RP=4
 SAR 7
 MOVI 1 #R7=1
+SAR 2
 BSLT 7 #if R2<1 then branch to shift array else increase score and move to shift array
 SAR 4
 ADDI 1 #R4=score++
@@ -162,4 +163,5 @@ SAR 3
 MOVI 0 #R3=0
 B     #jumps to CHECKER
 CHECKINGMAX: #LABEL 5
+SAR
 STOP
